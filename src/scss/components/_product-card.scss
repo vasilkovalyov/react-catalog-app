@@ -1,0 +1,86 @@
+.product-card {
+    background-color: $white;
+    display: block;
+    max-width: 100%;
+    width: 100%;
+    outline: none;
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    overflow-wrap: break-word;
+    position: relative;
+    white-space: normal;
+    overflow: hidden;
+    border-radius: 4px;
+    padding: 20px;
+    box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
+
+    &__image {
+        width: 100%;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    &__body {
+        flex: 1;
+    }
+
+    &__title {
+        display: block;
+        margin-bottom: 10px;
+        text-align: center;
+    }
+
+    &__description {
+        font-size: 14px;
+
+        p {
+            font-size: inherit;
+        }
+    }
+
+    &__discount {
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        &-sale {
+            display: inline-block;
+            position: relative;
+            top: 3px;
+            padding: 1px 4px 2px;
+            border-radius: 5px;
+            font-size: 12px;
+            font-weight: 700;
+            color: #fff;
+            background: red;
+        }
+        &-msg {
+            font-size: 12px;
+        }
+    }
+
+    &__price-old {
+        font-size: 15px;
+        color: rgba(0,0,0,.54);
+        margin-right: 10px;
+    }
+
+    &__price {
+        font-size: 18px;
+        font-weight: 600;
+    }
+
+    &__btn-wrap {
+        text-align: right;
+
+        .button {
+            min-width: 80px;
+
+            &:not(:first-child) {
+                margin-left: 10px;
+            }
+        }
+    }
+}

@@ -1,0 +1,6 @@
+export { default as Home } from './Home'
+export { default as SignIn } from './SignIn'
+export { default as SignUp } from './SignUp'
+export { default as AppRoute } from './AppRoute'
+export { default as EditProduct } from './EditProduct'
+export { default as CreateProduct } from './CreateProduct'

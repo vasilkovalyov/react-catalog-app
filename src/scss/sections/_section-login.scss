@@ -1,0 +1,38 @@
+.section-login {
+    position: relative;
+    display: flex;
+    background-color: $light;
+
+    &__inner {
+        min-height: 100vh;
+        display: flex;
+        width: 100%;
+    }
+
+    &__content {
+        max-width: 50%;
+        width: 100%;
+        padding: 0 20px;
+    }
+
+    &__image {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        background-size: cover;
+        background-position: center;
+        width: 50%;
+    }
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: 100%;
+
+        @include media('>=1440px') {
+            max-width: 1400px;
+        }
+    }
+}

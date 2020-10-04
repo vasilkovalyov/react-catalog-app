@@ -1,0 +1,55 @@
+.header {
+    background-color: $blue;
+    padding: 20px 0;
+    color: $nav-color;
+
+    .container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    &__logo {
+        font-size: 20px;
+        color: inherit;
+        
+        &:hover,
+        &:focus {
+            color: $white;
+        }
+    }
+
+    a {
+        color: inherit;
+
+        &:hover {
+            opacity: 0.5;
+        }
+    }
+}
+
+.header-navigation {
+    display: flex;
+    align-items: center;
+
+    .delimetr {
+        width: 1px;
+        height: 30px;
+        margin: 0 10px;
+        background-color: $white;
+    }
+
+    ul {
+        list-style-type: none;
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        li {
+            &:not(:last-child) {
+                margin-right: 10px;
+            }
+        }
+    }
+}

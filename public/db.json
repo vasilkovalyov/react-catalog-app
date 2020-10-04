@@ -1,0 +1,22 @@
+{
+    "products": [
+        {
+            "id": 0,
+            "imageUrl": "https://i.citrus.ua/imgcache/size_180/uploads/shop/3/6/36a537b7e456c7930ea6e94e6c09dcb5.jpg",
+            "title": "Apple iPhone 11 Pro 64Gb Midnight Green (MWC62)",
+            "discount": 12,
+            "description": "Test description about Apple iPhone 11 Pro",
+            "price": 1136,
+            "dateDiscountOver": "2020-10-10"
+        },
+        {
+            "id": 1,
+            "imageUrl": "https://i.citrus.ua/imgcache/size_180/uploads/shop/9/f/9fa99911a194bb6e3b6896f164eac060.jpg",
+            "title": "Realme 6 Pro 8/128Gb (Red)",
+            "discount": null,
+            "description":  "",
+            "price": 273,
+            "dateDiscountOver": null
+        }
+    ]
+}

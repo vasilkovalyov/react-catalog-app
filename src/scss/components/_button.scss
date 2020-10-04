@@ -1,0 +1,34 @@
+.button {
+    padding: 8px 15px;
+    background-color: $blue;
+    border: none;
+    cursor: pointer;
+    color: $white;
+    border-radius: 4px;
+    transition: background-color 0.3s linear;
+    outline: none;
+
+    &:hover {
+        background-color: darken($blue, 10%);
+    }
+
+    &__success {
+        background-color: $green;
+
+        &:hover {
+            background-color: darken($green, 10%);
+        }
+    }
+
+    &__danger {
+        background-color: $red;
+
+        &:hover {
+            background-color: darken($red, 10%);
+        }
+    }
+
+    &__primary {
+        background-color: $aqua;
+    }
+}

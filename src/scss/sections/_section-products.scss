@@ -1,0 +1,30 @@
+.section-products {
+    &__content {
+        background-color: $white;
+        overflow: hidden;
+        border-radius: 5px;
+        min-height: calc(100vh - 170px);
+    }
+
+    .section-caption {
+        padding: 20px;
+    }
+}
+
+.products-list {
+    
+    @include media('>=tablet') {
+        display: flex;
+        flex-wrap: wrap;
+        padding: 0 5px;
+    }
+
+    .col {
+        @include media('>=tablet') {
+            max-width: 33.33%;
+            width: 100%;
+            display: flex;
+            padding: 0 15px;
+        }
+    }      
+} 

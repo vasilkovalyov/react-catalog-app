@@ -1,0 +1,48 @@
+.wrapper {
+    overflow: hidden;
+    max-width: 100%;
+}
+
+.container {
+    max-width: $max-width-center-container;
+    width: 100%;
+    padding: $padding-container;
+    margin: 0 auto;
+}
+
+.section-auth {
+    padding: 50px 0;
+    min-height: calc(100vh - 64px);
+    display: flex;
+
+    .container {
+        display: flex;
+        align-items: center;
+    }
+}
+
+.section-products {
+    padding: 50px 0;
+}
+
+.product-list {
+    
+    @include media('>=desktop') {
+        display: flex;
+        flex-wrap: wrap;
+        margin: 0 -15px;
+    }
+
+    .col {
+        @include media('>=desktop') {
+            max-width: 33.33%;
+            width: 100%;
+            display: flex;
+            padding: 0 15px;
+        }
+    }      
+} 
+
+.hidden {
+    display: none !important;
+}

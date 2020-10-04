@@ -1,0 +1,66 @@
+.input-component  {
+    margin-bottom: 20px;
+
+    &__label {
+        display: block;
+        font-size: 16px;
+        color: #364A64;
+        margin-bottom: 10px;
+    }
+}
+
+.input-field {
+    $gap-icon: 5px;
+    position: relative;
+
+    input,
+    textarea {
+        width: 100%;
+        border: 2px solid #E9ECEF;
+        font-size: 14px;
+        border-radius: 5px;
+        font-family: $base-font;
+        outline: none;
+
+        @include media('>=desktop') {
+            height: 48px;
+            padding: 15px 45px;
+        }
+
+        &:only-child {
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+    }
+
+
+    textarea {
+        max-width: 100%;
+        padding: 12px 15px;
+        min-height: 100px;
+    }
+
+    &__logo,
+    &__btn-password {
+        position: absolute;
+        top: $gap-icon;
+        bottom: $gap-icon;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &__logo {
+        left: $gap-icon;
+        width: 30px;
+    }
+
+    &__btn-password {
+        border: none;
+        outline: none;
+        right: $gap-icon;
+        background: transparent;
+        cursor: pointer;
+        width: 40px;
+    }
+}
