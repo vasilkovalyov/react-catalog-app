@@ -1,8 +1,18 @@
-import React from 'react';
+import React, {useEffect} from 'react';
+import { useDispatch } from 'react-redux'
+
 import './scss/app.scss';
 import './App.scss';
 
 import { BrowserRouter, Switch } from 'react-router-dom';
+
+
+import actions from './redux/actions';
+
+
+/*Layouts*/
+import AuthLayout from './layouts/AuthLayout'
+import MainLayout from './layouts/MainLayout'
 
 /*Routes */
 import { 
@@ -14,11 +24,12 @@ import {
 	CreateProduct
 } from './routes'
 
-/*Layouts*/
-import AuthLayout from './layouts/AuthLayout'
-import MainLayout from './layouts/MainLayout'
-
 function App() {
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		dispatch(actions.load_products('http://localhost:3000/db.json'));
+	}, [])
 	return (
 		<BrowserRouter>
 			<div className="app">

@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 const Input = (props) => {
     const {type, placeholder, id, label, iconName, value, onHandleInput } = props;
@@ -26,14 +25,5 @@ const Input = (props) => {
         </div>
     );
 };
-
-// Input.propTypes = {
-//     type: PropTypes.string,
-//     placeholder: PropTypes.string,
-//     name: PropTypes.string,
-//     id: PropTypes.string,
-//     label: PropTypes.string,
-//     value: PropTypes.string
-// };
 
 export default Input;

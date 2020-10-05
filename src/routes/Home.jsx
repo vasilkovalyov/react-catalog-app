@@ -1,22 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { useSelector } from 'react-redux';
 
 import Product from '../components/Product';
-import axios from 'axios';
 
-const url = 'http://localhost:3000/db.json';
 
 const Home = () => {
-    const [products, setProducts] = useState([]);
-
-    useEffect(() => {
-        const fetchData = async () => {
-          const result = await axios(url);
-     
-          setProducts(result.data.products);
-        };
-     
-        fetchData();
-    }, []);
+    const products = useSelector(state => state.products.products);
 
     return (
         <section className="section-products">
@@ -24,6 +13,7 @@ const Home = () => {
                 <div className="section-products__content">
                     <div className="section-caption">
                         <h1>Products</h1>    
+                        
                     </div>
                     <div className="products-list">
                         { products ? products.map((product, key) => (

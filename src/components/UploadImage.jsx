@@ -29,14 +29,14 @@ const UploadImage = (props) => {
             setImageFile(file);
             setImageUrl(reader.result);
         }
-
+        console.log(imageFile);
         reader.readAsDataURL(file);
     }
 
     return (
         <div className="image-upload">
             {
-                imageUrl != null ? <img src={imageUrl} />
+                imageUrl != null ? <img src={imageUrl}  alt="img" />
                 : <div className="image-upload__thumb"></div>
             }
             <div className="btn-wrap">

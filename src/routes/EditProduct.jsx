@@ -20,7 +20,6 @@ const EditProduct = (props) => {
     useEffect(() => {
         const fetchData = async () => {
           const result = await axios(url);
-
           const findProduct = result.data.products.filter(product => product.id === idProduct)[0];
           setProduct(findProduct);
         };
@@ -45,13 +44,6 @@ const EditProduct = (props) => {
             <div className="container">
                 <h1>Edit product {product.title}</h1>
                 <div className="section-content">
-                    {/* <div className="image-upload">
-                        <img src={product.imageUrl} alt={product.title}/>
-                        <div className="btn-wrap">
-                            <Button additionalClsName="success">Upload</Button>
-                            <Button additionalClsName="danger">Remove</Button>
-                        </div>
-                    </div> */}
                     <UploadImage imageUrl={product.imageUrl} />
                     <div className="product-edit">
                         <form className="product-form">
