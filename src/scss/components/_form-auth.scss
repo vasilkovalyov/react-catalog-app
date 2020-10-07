@@ -41,3 +41,24 @@
     }
 }
 
+.form-notification {
+    background-color: $white;
+    padding: 12px 10px 12px 20px;
+    font-size: 14px;
+    box-shadow: 0px 0px 14px -3px rgba(94, 98, 100, 0.75);
+    max-width: 450px;
+    width: 100%;
+    position: absolute;
+    top: -80px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    &.error {
+        border-left: 5px solid $red;
+    }
+
+    &.success {
+        border-left: 5px solid $green;
+    }
+
+}

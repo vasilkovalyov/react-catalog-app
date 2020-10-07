@@ -30,7 +30,6 @@ const CreateProduct = () => {
 
     function submitForm(e) {
         e.preventDefault();
-        console.log(product);
     }
 
     return (

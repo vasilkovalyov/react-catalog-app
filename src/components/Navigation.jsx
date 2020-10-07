@@ -13,7 +13,7 @@ const Navigation = (props) => {
                 {
                     navigation.map((item, key) => {
                         return <li key={key}>
-                            <Link to={item.link} >{item.name}</Link>
+                            <Link to={item.link} onClick={item.method ? item.method : null} >{item.name}</Link>
                         </li>
                     })
                 }

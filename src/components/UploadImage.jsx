@@ -29,7 +29,6 @@ const UploadImage = (props) => {
             setImageFile(file);
             setImageUrl(reader.result);
         }
-        console.log(imageFile);
         reader.readAsDataURL(file);
     }
 

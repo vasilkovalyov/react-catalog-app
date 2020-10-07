@@ -36,7 +36,6 @@ const EditProduct = (props) => {
 
     function submitForm(e) {
         e.preventDefault();
-        console.log(product);
     }
 
     return (

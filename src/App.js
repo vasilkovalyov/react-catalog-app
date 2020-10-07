@@ -9,7 +9,6 @@ import { BrowserRouter, Switch } from 'react-router-dom';
 
 import actions from './redux/actions';
 
-
 /*Layouts*/
 import AuthLayout from './layouts/AuthLayout'
 import MainLayout from './layouts/MainLayout'
@@ -24,10 +23,12 @@ import {
 	CreateProduct
 } from './routes'
 
+
 function App() {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
+		dispatch(actions.auth_user());
 		dispatch(actions.load_products('http://localhost:3000/db.json'));
 	}, [])
 	return (

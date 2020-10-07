@@ -3,20 +3,33 @@ import { Link } from 'react-router-dom';
 
 import { 
 	Button, 
-	Input, 
+    Input, 
+    FormNotification
 } from '../components/Form'
 
+import firebase from '../firebase';
+
 const SignUp = () => {
+    const [authFormMessage, setAuthFormMessage] = useState(null);
+
     const [formData, setFormData] = useState({
-        name: null,
-        surname: null,
         email: null,
         password: null
     });
 
     function submitForm(e) {
         e.preventDefault();
-        console.log(formData);
+
+        firebase.doCreateUserWithEmailAndPassword(formData.email, formData.password)
+        .catch(e => {
+            setAuthFormMessage({
+                message: e.message,
+                stateCls: 'error'
+            });
+        });
+
+        timeoutNotification();
+
     }
 
     const inputHandle = (type, value) => {
@@ -26,30 +39,26 @@ const SignUp = () => {
         }))
     }
 
+    const timeoutNotification = () => {
+        setTimeout(() => {
+            setAuthFormMessage(null)
+        }, 2000);
+    }
+
     return (
         <section className="section-login">
             <div className="section-login__inner">
                 <div className="container">
                     <div className="section-login__content">
-                        <form className="form-auth" onClick={submitForm}>
+                        {
+                            authFormMessage !== null ? <FormNotification {...authFormMessage} /> : null
+                        }
+
+                        <form className="form-auth">
                             <div className="form-auth__header">
                                 <h2>Sign Up</h2>
                                 <p>Create a new account for My Product App</p>
                             </div>
-                            <Input 
-                                type="text" 
-                                label="First Name" 
-                                placeholder="First Name" 
-                                iconName="person-icon"
-                                onHandleInput={(value) => inputHandle('name', value)} 
-                            />
-                            <Input 
-                                type="text" 
-                                label="Last Name"
-                                placeholder="Last Name" 
-                                iconName="person-icon"
-                                onHandleInput={(value) => inputHandle('surname', value)} 
-                            />
                             <Input 
                                 type="email" 
                                 label="Email"
@@ -65,7 +74,7 @@ const SignUp = () => {
                                 onHandleInput={(value) => inputHandle('password', value)} 
                             />
                             <div className="btn-wrap">
-                                <Button additionalClsName="primary" onHangleClick={() => {}}>Register</Button>
+                                <Button additionalClsName="primary" onHangleClick={(e) => submitForm(e)}>Register</Button>
                             </div>
                             <div className="form-auth__info-msg">
                                 <p><Link to="/sign-in">Back to Login</Link></p>
