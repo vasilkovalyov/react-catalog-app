@@ -6,7 +6,7 @@ const AppRoute = ({component: Component, layout: Layout, ...rest}) => (
         {...rest}
         render = { (props) => (
             <Layout>
-                <Component {...props} />
+                <Component {...props} {...rest} />
             </Layout>
         )}
     >

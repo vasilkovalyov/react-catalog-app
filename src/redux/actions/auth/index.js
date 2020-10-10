@@ -5,15 +5,11 @@ import {
     SIGN_OUT_USER,
 } from '../../constans';
 
-export const auth_user = () => {
+export const auth_user = (user) => {
     return (dispatch) => {
-        firebase.auth.onAuthStateChanged(function(user) {
-            if(user) {
-                dispatch({
-                    type: SIGN_IN_USER,
-                    data: user
-                })
-            }
+        dispatch({
+            type: SIGN_IN_USER,
+            data: user
         })
     }
 }

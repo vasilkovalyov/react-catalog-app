@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import { useDispatch } from 'react-redux'
 
 import './scss/app.scss';
@@ -23,13 +23,20 @@ import {
 	CreateProduct
 } from './routes'
 
+import firebase from './firebase';
+
 
 function App() {
 	const dispatch = useDispatch();
 
+
 	useEffect(() => {
-		dispatch(actions.auth_user());
+		firebase.auth.onAuthStateChanged(function(user) {
+			dispatch(actions.auth_user(user));
+		})
+
 		dispatch(actions.load_products('http://localhost:3000/db.json'));
+		
 	}, [])
 	return (
 		<BrowserRouter>

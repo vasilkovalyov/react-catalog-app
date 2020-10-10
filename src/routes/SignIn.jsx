@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import  { Redirect } from 'react-router-dom'
+import { Link, Route, Redirect, useHistory  } from 'react-router-dom';
+
+import Loader from '../components/Loader';
 
 import { 
 	Button, 
@@ -11,7 +12,9 @@ import {
 import firebase from '../firebase';
 
 const SignIn = (props) => {
+    const [isLoading, setLoading] = useState(false);
     const [authFormMessage, setAuthFormMessage] = useState(null);
+    const history = useHistory();
 
     const [formData, setFormData] = useState({
         email: null,
@@ -20,10 +23,14 @@ const SignIn = (props) => {
 
     function submitForm(e) {
         e.preventDefault();
+        setLoading(true);
 
         firebase.doSignInUserWithEmailAndPassword(formData.email, formData.password)
-        .then(response => {
-            // props.history.push('/');
+        .then(() => {
+            setLoading(false);
+        })
+        .then(() => {
+            history.push("/");
         })
         .catch(e => {
             setAuthFormMessage({
@@ -33,7 +40,6 @@ const SignIn = (props) => {
         })
         
         timeoutNotification();
-
     }
 
     const inputHandle = (type, value) => {
@@ -59,6 +65,9 @@ const SignIn = (props) => {
                         }
 
                         <form className="form-auth">
+                            {
+                                isLoading ? <Loader /> : null
+                            }
                             <div className="form-auth__header">
                                 <h2>Sign in</h2>
                                 <p>Please login to access the Dashboard</p>
@@ -78,7 +87,7 @@ const SignIn = (props) => {
                                 onHandleInput={(value) => inputHandle('password', value)} 
                             />
                             <div className="btn-wrap">
-                                <Button additionalClsName="primary" onHangleClick={(e) => submitForm(e)}>Login</Button>
+                                <Button additionalClsName="primary" onHangleClick={(e) => {submitForm(e)}}>Login</Button>
                             </div>
                             <div className="form-auth__info-msg">
                                 <p>New to our platform? <Link to="/sign-up">Create an account</Link></p>

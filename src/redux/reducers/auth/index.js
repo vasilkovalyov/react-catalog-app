@@ -9,15 +9,20 @@ const initialStore = {
 }
 
 const reducer = (state = initialStore, action) => {
-    console.log(action);
-    
     switch(action.type) {
         case SIGN_IN_USER : {
-            return {
-                ...state,
-                user: action.data,
-                userUid: action.data.uid
+            if(action.data) {
+                return {
+                    ...state,
+                    user: action.data,
+                    userUid: action.data.uid
+                }
+            } else {
+                return {
+                    ...state
+                };
             }
+            
         }
 
         case SIGN_OUT_USER : {

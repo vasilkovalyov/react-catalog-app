@@ -1,0 +1,35 @@
+.loader {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 5px;
+    right: 0;
+    overflow: hidden;
+    
+    &__line {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        background-color: $aqua;
+        animation-name: animateLine;
+        animation-iteration-count: infinite;
+        animation-duration: 1.4s;
+    }
+}
+
+@keyframes animateLine {
+    0% {
+        left: -10%;
+        width: 0;
+    }
+
+    50% {
+        width: 50%;
+    }
+
+    100% {
+        width: 0;
+        left: 100%;
+    }
+}

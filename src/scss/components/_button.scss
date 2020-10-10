@@ -7,7 +7,9 @@
     border-radius: 4px;
     transition: background-color 0.3s linear;
     outline: none;
-
+    display: inline-block;
+    text-align: center;
+    
     &:hover {
         background-color: darken($blue, 10%);
     }

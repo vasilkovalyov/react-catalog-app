@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import Product from '../components/Product';
 
 
-const Home = () => {
+const Home = (props) => {
     const products = useSelector(state => state.products.products);
 
     return (

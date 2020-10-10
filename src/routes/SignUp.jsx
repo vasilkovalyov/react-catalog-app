@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+
+import Loader from '../components/Loader';
 
 import { 
 	Button, 
@@ -11,16 +14,29 @@ import firebase from '../firebase';
 
 const SignUp = () => {
     const [authFormMessage, setAuthFormMessage] = useState(null);
+    const [isLoading, setLoading] = useState(false);
+    const history = useHistory();
 
     const [formData, setFormData] = useState({
+        name: null,
         email: null,
         password: null
     });
 
     function submitForm(e) {
         e.preventDefault();
+        setLoading(true);
 
         firebase.doCreateUserWithEmailAndPassword(formData.email, formData.password)
+        .then(function(result) {
+			return result.user.updateProfile({
+				displayName: formData.name
+			})
+        })
+        .then(() => {
+            setLoading(false);
+            history.push('/');
+        })
         .catch(e => {
             setAuthFormMessage({
                 message: e.message,
@@ -29,7 +45,6 @@ const SignUp = () => {
         });
 
         timeoutNotification();
-
     }
 
     const inputHandle = (type, value) => {
@@ -55,10 +70,20 @@ const SignUp = () => {
                         }
 
                         <form className="form-auth">
+                            {
+                                isLoading ? <Loader /> : null
+                            }
                             <div className="form-auth__header">
                                 <h2>Sign Up</h2>
                                 <p>Create a new account for My Product App</p>
                             </div>
+                            <Input 
+                                type="text" 
+                                label="User name"
+                                placeholder="User name" 
+                                iconName="person-icon"
+                                onHandleInput={(value) => inputHandle('name', value)} 
+                            />
                             <Input 
                                 type="email" 
                                 label="Email"

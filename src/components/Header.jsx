@@ -1,29 +1,37 @@
-import React from 'react';
-import Navigation from './Navigation';
+import React, {useEffect, useState} from 'react';
+import { Fragment } from 'react';
 import { useSelector } from 'react-redux';
-
 import firebase from '../firebase';
-import actions from '../redux/actions'
-import { useEffect } from 'react';
-import { useState } from 'react';
 
-const Header = () => {
+import { useHistory } from 'react-router-dom';
+
+
+import actions from '../redux/actions'
+
+import Navigation from './Navigation';
+import UserLoginIn from './UserLoginIn';
+
+const Header = (props) => {
+    const history = useHistory();
     const [isAuth, setIsAuth] = useState(false);
-    const isAuthUser = useSelector(state => state.auth.userUid);
+    const isAuthUserId = useSelector(state => state.auth.userUid);
+    const AuthUser = useSelector(state => state.auth.user);
 
     const signOutMethod = (e) => {
+        e.preventDefault();
         firebase.auth.signOut()
         .then(() => {
             actions.sing_out_user();
             setIsAuth(false);
+            history.push('/sign-in');
         })
     }
 
     useEffect(() => {
-        if(isAuthUser) {
+        if(isAuthUserId) {
             setIsAuth(true);
         }
-    }, [isAuthUser])
+    }, [isAuthUserId, AuthUser])
 
     const navIsNotAuth  = [
         {
@@ -56,9 +64,16 @@ const Header = () => {
     return (
         <header className="header">
             <div className="container">
-                {console.log(isAuth)}
                 <span to='/'>Product App</span>
-                <Navigation navigation={ isAuth ? navIsAuth : navIsNotAuth } />
+                <nav className="header-navigation">
+                    <Navigation navigation={ isAuth ? navIsAuth : navIsNotAuth } />
+                    {
+                        isAuth ? <Fragment>
+                            <span className="delimetr">
+                            </span> <UserLoginIn userName={AuthUser.displayName}/>
+                        </Fragment> : null
+                    }
+                </nav>
             </div>
         </header>
     );
