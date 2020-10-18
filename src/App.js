@@ -34,8 +34,7 @@ function App() {
 		firebase.auth.onAuthStateChanged(function(user) {
 			dispatch(actions.auth_user(user));
 		})
-
-		dispatch(actions.load_products('http://localhost:3000/db.json'));
+		dispatch(actions.load_products());
 		
 	}, [])
 	return (

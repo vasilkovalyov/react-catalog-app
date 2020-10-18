@@ -1,3 +1,4 @@
+import actions from '../../actions'
 import {
     LOAD_PRODUCTS, 
 } from '../../constans'
@@ -12,7 +13,7 @@ const reducer = (state = initialStore, action) => {
         case LOAD_PRODUCTS : {
             return {
                 ...state,
-                products: action.data.products
+                products: action.data
             }
         }
 

@@ -1,20 +1,22 @@
-import axios from 'axios';
+import firebase from '../../../firebase';
 
 import {
     LOAD_PRODUCTS,
 } from '../../constans';
 
 
-export const load_products = (url) => {
+export const load_products = () => {
     return (dispatch) => {
-        axios(url)
-        .then(response => response.data)
-        .then(data => {
-            dispatch({
-                type: LOAD_PRODUCTS,
-                data: data
-            })
+        firebase.doLoadProductsFb()
+        .then(response => {
+            dispatch(loadProductsAction(response))
         })
-        .catch(e => console.log(e))
-    }
+    };
+}
+
+const loadProductsAction = (products) => {
+    return {
+        type: LOAD_PRODUCTS,
+        data: products
+    };
 }

@@ -1,6 +1,8 @@
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
+import 'firebase/database'
+import actions from '../redux/actions';
 
 const firebaseConfig = {
     apiKey: "AIzaSyDZ-JEfYmnSQSmcKj2g-zIlmeh5CGTiyYg",
@@ -17,6 +19,7 @@ class Firebase {
 	constructor() {
 		firebase.initializeApp(firebaseConfig);
 		this.auth = firebase.auth();
+		this.firebase = firebase;
 	}
 
 	// *** Auth API ***
@@ -26,6 +29,31 @@ class Firebase {
 
 	doSignInUserWithEmailAndPassword = (email, password) => {
 		return this.auth.signInWithEmailAndPassword(email, password)
+	}
+
+	doCreateProduct = (...product) => {
+		const productRef = this.firebase.database().ref('products');
+		productRef.push(...product)
+		.then(data => {
+			return data.key;
+		})
+	}
+
+	doLoadProductsFb = () => {
+		const firebaseDb = this.firebase.database()
+
+		return new Promise(
+			function(resolve, reject) {
+				firebaseDb.ref('products')
+				.on('value', function(snapshot) {
+					if(snapshot) {
+						return resolve(Object.values(snapshot.val()))
+					} else {
+						reject(new Error('Error data'));
+					}
+				})
+			}
+		)
 	}
 }
 

@@ -3,6 +3,8 @@ import { useState } from 'react';
 
 import UploadImage from '../components/UploadImage'
 
+import firebase from '../firebase';
+
 import { 
 	Button, 
 	Input, 
@@ -30,6 +32,7 @@ const CreateProduct = () => {
 
     function submitForm(e) {
         e.preventDefault();
+        firebase.doCreateProduct({...product})
     }
 
     return (
@@ -37,14 +40,6 @@ const CreateProduct = () => {
             <div className="container">
                 <div className="section-content">
                 <div className="section-content">
-                    {/* <div className="image-holder">
-                        <div className="image-holder__thumb"></div>
-                        <img src={product.imageUrl} />
-                        <div className="btn-wrap">
-                            <Button additionalClsName="success">Upload</Button>
-                            <Button additionalClsName="danger">Remove</Button>
-                        </div>
-                    </div> */}
                     <UploadImage />
                     <div className="product-edit">
                         <form className="product-form">

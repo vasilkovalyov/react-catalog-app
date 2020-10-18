@@ -6,11 +6,20 @@ import { Button } from './Form'
 
 
 const ProductCard = (props) => {
-    
-    const { id, imageUrl, title, description, price, discount, dateDiscountOver } = props.product;
+    const { 
+        id, 
+        imageUrl, 
+        title, 
+        description, 
+        price,
+        discount,
+        dateDiscountOver 
+    } = props.product;
 
-    const getOldPrice = () => {
-        return price - ((price / 100) * discount);
+    const getOldPrice = (price) => {
+        const regex = /(\d+)/g;
+        const numPrice = price.split(/[0-9]+/).join("") + price.match(regex).join('');
+        return (numPrice - ((numPrice / 100) * discount)).toFixed(0);
     };
 
     const getLeftDiscountDays = () => {
@@ -43,7 +52,7 @@ const ProductCard = (props) => {
                 <div className="product-card-prices">
                     {
                         discount ? 
-                            <del className="product-card__price-old">{getOldPrice(price).toFixed(0)}</del>
+                            <del className="product-card__price-old">{getOldPrice(price)}$</del>
                             : null
                     }
                     
