@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, Route, Redirect, useHistory  } from 'react-router-dom';
+import { Link, useHistory  } from 'react-router-dom';
 
 import Loader from '../components/Loader';
 
@@ -52,6 +52,7 @@ const SignIn = (props) => {
     const timeoutNotification = () => {
         setTimeout(() => {
             setAuthFormMessage(null)
+            setLoading(false);
         }, 2000);
     }
 

@@ -1,4 +1,3 @@
-import actions from '../../actions'
 import {
     LOAD_PRODUCTS, 
 } from '../../constans'

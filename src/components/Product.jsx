@@ -1,20 +1,20 @@
 import React from 'react';
 
 import { Link } from 'react-router-dom';
-
 import { Button } from './Form'
 
 
 const ProductCard = (props) => {
     const { 
-        id, 
-        imageUrl, 
+        key, 
+        image, 
         title, 
         description, 
         price,
         discount,
         dateDiscountOver 
     } = props.product;
+
 
     const getOldPrice = (price) => {
         const regex = /(\d+)/g;
@@ -32,12 +32,10 @@ const ProductCard = (props) => {
         return Math.round(diff / days); 
     }
 
-    const convertTitleProductForUrl = (title) => title.toLowerCase().replace(/\s+/g, "-");
-
     return (
         <div className="product-card">
             <div className="product-card__image">
-                <img src={imageUrl} alt={title}/>
+                <img src={image} alt={title}/>
             </div>
             <div className="product-card__body">
                 <strong className="product-card__title">{title}</strong>
@@ -63,7 +61,7 @@ const ProductCard = (props) => {
                 </div>
             </div>
             <div className="product-card__btn-wrap">
-                <Link to={{pathname: `/edit/${convertTitleProductForUrl(title)}/`, state: {productId: id}}}>
+                <Link to={{pathname: `/edit/${key}/`, state: {productId: key}}}>
                     <Button additionalClsName="success">Edit</Button>
                 </Link>
                 <Button additionalClsName="danger" onHangleClick={() => {}}>Remove</Button>

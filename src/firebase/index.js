@@ -2,7 +2,7 @@ import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
 import 'firebase/database'
-import actions from '../redux/actions';
+import 'firebase/storage'
 
 const firebaseConfig = {
     apiKey: "AIzaSyDZ-JEfYmnSQSmcKj2g-zIlmeh5CGTiyYg",
@@ -31,12 +31,52 @@ class Firebase {
 		return this.auth.signInWithEmailAndPassword(email, password)
 	}
 
-	doCreateProduct = (...product) => {
-		const productRef = this.firebase.database().ref('products');
-		productRef.push(...product)
-		.then(data => {
-			return data.key;
+	doCreateProduct = async ({...product}) => {
+		const refProducts = this.firebase.database().ref('products');
+		const imageUrlResponse = this.doUploadImageAndGetUrl(product.image);
+		
+		const createProductAndGetkey = await refProducts.push(product)
+		.then(data => data.key);
+		
+		imageUrlResponse
+		.then(imageUrl => {
+			if(imageUrl) {
+				refProducts.child(createProductAndGetkey).set({
+					...product,
+					image: imageUrl
+				})
+			}
 		})
+	}
+
+	doUploadImageAndGetUrl = async (image) => {
+		if(!image) return;
+
+		const storageRef = await firebase.storage().ref(`products/${image.name}`);
+		return await storageRef.put(image)
+		.then(snapshot => {
+			return snapshot.ref.getDownloadURL();
+		})
+	}
+
+
+	doLoadProductById = (productKey) => {
+		const firebaseDb = this.firebase.database();
+
+		return new Promise(
+			function(resolve, reject) {
+				firebaseDb.ref('products/'+productKey).once('value')
+				.then(response => {
+					const product = response.val();
+
+					if(product) {
+						return resolve(product)
+					} else {
+						reject(new Error('Error product info'));
+					}
+				})
+			}
+		)
 	}
 
 	doLoadProductsFb = () => {
@@ -45,16 +85,29 @@ class Firebase {
 		return new Promise(
 			function(resolve, reject) {
 				firebaseDb.ref('products')
-				.on('value', function(snapshot) {
-					if(snapshot) {
-						return resolve(Object.values(snapshot.val()))
+				.once('value', function(snapshot) {
+					const products = snapshot.val();
+					const arrayOfProducts = [];
+
+					if(products != null) {
+						for(let key in products) {
+							arrayOfProducts.push({
+								key: key,
+								...products[key]
+							})
+						}
+
+						return resolve(arrayOfProducts);
+						
 					} else {
-						reject(new Error('Error data'));
+						reject([]);
 					}
 				})
 			}
 		)
 	}
+
+
 }
 
 const fb = new Firebase();

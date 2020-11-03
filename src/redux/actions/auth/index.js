@@ -1,5 +1,3 @@
-import firebase from '../../../firebase';
-
 import {
     SIGN_IN_USER,
     SIGN_OUT_USER,

@@ -15,7 +15,7 @@ import {
 const CreateProduct = () => {
 
     const [product, setProduct] = useState({
-        imageUrl: null,
+        image: null,
         title: null,
         price: null,
         discount: null,
@@ -32,7 +32,17 @@ const CreateProduct = () => {
 
     function submitForm(e) {
         e.preventDefault();
-        firebase.doCreateProduct({...product})
+
+        firebase.doCreateProduct(product)
+
+        // firebase.doCreateProduct(...product);
+    }
+
+    function handleClickImage(...image) {
+        setProduct({
+            ...product,
+            image: image[0]
+        })
     }
 
     return (
@@ -40,7 +50,9 @@ const CreateProduct = () => {
             <div className="container">
                 <div className="section-content">
                 <div className="section-content">
-                    <UploadImage />
+                    <UploadImage 
+                        handleClickImage = {(image) => handleClickImage(image)}
+                    />
                     <div className="product-edit">
                         <form className="product-form">
                             <Input 

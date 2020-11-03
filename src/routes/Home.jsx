@@ -16,8 +16,8 @@ const Home = (props) => {
                         
                     </div>
                     <div className="products-list">
-                        { products ? products.map((product, key) => (
-                            <div className="col" key={key}>
+                        { products ? products.map(product => (
+                            <div className="col" key={product.key}>
                                 <Product product={product}/>
                             </div>
                         )) : 'null' }

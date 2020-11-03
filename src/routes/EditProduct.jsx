@@ -1,37 +1,45 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 
-import axios from 'axios';
-
 import UploadImage from '../components/UploadImage';
+
+import firebase from '../firebase';
 
 import { 
 	Button, 
 	Input, 
 	TextArea,
 } from '../components/Form'
+import { useHistory } from 'react-router-dom';
 
-const url = 'http://localhost:3000/db.json';
 
 const EditProduct = (props) => {
     const [product, setProduct] = useState({});
-    const idProduct = props.location.state.productId;
+    // const idProduct = props.location.state.productId;
+    const history = useHistory();
 
     useEffect(() => {
-        const fetchData = async () => {
-          const result = await axios(url);
-          const findProduct = result.data.products.filter(product => product.id === idProduct)[0];
-          setProduct(findProduct);
-        };
-     
-        fetchData();
-    }, []);
+        const productKey = history.location.state.productId;
+        firebase.doLoadProductById(productKey)
+        .then(response => {
+            console.log(response);
+            setProduct(response);
+        })
+
+    }, [history]);
 
     const inputHandle = (type, value) => {
         setProduct((prevState) => ({
             ...prevState,
             [type]: value
         }))
+    }
+
+    function handleClickImage(...image) {
+        setProduct({
+            ...product,
+            image: image[0]
+        })
     }
 
     function submitForm(e) {
@@ -43,7 +51,10 @@ const EditProduct = (props) => {
             <div className="container">
                 <h1>Edit product {product.title}</h1>
                 <div className="section-content">
-                    <UploadImage imageUrl={product.imageUrl} />
+                    <UploadImage 
+                        imageUrl={product.image} 
+                        handleClickImage = {(image) => handleClickImage(image)}
+                    />
                     <div className="product-edit">
                         <form className="product-form">
                             <Input 

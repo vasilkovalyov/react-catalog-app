@@ -1,11 +1,10 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import { useDispatch } from 'react-redux'
 
 import './scss/app.scss';
 import './App.scss';
 
 import { BrowserRouter, Switch } from 'react-router-dom';
-
 
 import actions from './redux/actions';
 
@@ -25,10 +24,8 @@ import {
 
 import firebase from './firebase';
 
-
 function App() {
 	const dispatch = useDispatch();
-
 
 	useEffect(() => {
 		firebase.auth.onAuthStateChanged(function(user) {
@@ -36,7 +33,7 @@ function App() {
 		})
 		dispatch(actions.load_products());
 		
-	}, [])
+	}, [dispatch])
 	return (
 		<BrowserRouter>
 			<div className="app">

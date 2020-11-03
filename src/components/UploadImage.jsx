@@ -4,8 +4,8 @@ import { Button } from './Form';
 import { useEffect } from 'react';
 
 const UploadImage = (props) => {
+    const { handleClickImage } = props;
     const [imageUrl, setImageUrl] = useState(null);
-    const [imageFile, setImageFile] = useState(null);
     const fileUploader = useRef(null);
 
     useEffect(() => {
@@ -26,10 +26,12 @@ const UploadImage = (props) => {
         let file = e.target.files[0];
 
         reader.onload = () => {
-            setImageFile(file);
             setImageUrl(reader.result);
         }
+
         reader.readAsDataURL(file);
+
+        handleClickImage(file);
     }
 
     return (
@@ -41,7 +43,7 @@ const UploadImage = (props) => {
             <div className="btn-wrap">
                 <Button additionalClsName="success" onHangleClick={(e) => uploadButton(e)}>
                     Upload
-                    <input type="file" className="hidden"  ref={fileUploader} onChange={(e) => uploadImage(e)} />
+                    <input type="file" className="hidden" ref={fileUploader} onChange={(e) => uploadImage(e)} />
                 </Button>
                 <Button additionalClsName="danger" onHangleClick={(e) => removeImage(e)}>Remove</Button>
             </div>
